@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+require "optparse"
+
+require "bundler/setup"
+require "studio_one"
+
+config = StudioOne::Configuration.new
+command = ARGV.shift
+
+if command&.start_with?("-")
+  puts "Please supply a command i.e. studio_one batch-rename [OPTIONS]"
+  puts options
+  exit(1)
+end
+
+config.command = command.downcase.strip
+
+StudioOne::Runner.new(config).run
